@@ -3,25 +3,72 @@ import Container from "@material-ui/core/Container";
 import UserAvatar from "../shared/UserAvatar/UserAvatar";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import SettingsIcon from '@material-ui/icons/Settings';
 import AddToPhotosOutlinedIcon from '@material-ui/icons/AddToPhotosOutlined';
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import {AuthContext} from "../../context/AuthContext";
 import useStyles from "./styles";
 import { func, object } from 'prop-types';
+import {ProfileContext} from "../../context/ProfileContext";
+import subscriptionAPI from "../../utils/api/subscriptionAPI";
+import FollowButton from "../Subscriptions/components/FollowButton/FollowButton";
 
 
 const ProfileHeader = ({openUploadWindow, profile}) => {
   const { userID } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [own, setOwn] = useState(false);
+  const {subscribe, profile: { following }, profile: followerData } = useContext(ProfileContext);
+  const [statusUpdating, setStatusUpdating] = useState(false);
+  const [followingStatus, setFollowingStatus] = useState(false);
+
+  useEffect(() => {
+
+    if(following.join().includes(profile.id)) {
+      setFollowingStatus(false);
+
+    } else {
+      setFollowingStatus(true);
+    }
+
+  }, [followingStatus, followerData])
+
+  const follow = async () => {
+    setStatusUpdating(true);
+
+    try {
+      const res = await subscriptionAPI(auth, profile.id);
+
+      if (!res.errors) {
+        subscribe(profile.id, followerData);
+        setFollowingStatus(!followingStatus);
+      }
+
+    } catch (e) { console.log(e); }
+
+    setStatusUpdating(false);
+  }
+
+  const stopFollowing = async () => {
+    setStatusUpdating(true);
+    try {
+      const res = await subscriptionAPI(auth, profile.id, true);
+
+      if (!res.errors) {
+        subscribe(profile.id, followerData, false);
+        setFollowingStatus(!followingStatus);
+      }
+
+    } catch (e) { console.log(e); }
+
+    setStatusUpdating(false);
+  }
 
   useEffect(() => {
     if(userID === profile.id) {
       setOwn(true);
     }
-  },[]);
+  },[userID, profile.id]);
 
   const classes = useStyles();
 
@@ -40,14 +87,15 @@ const ProfileHeader = ({openUploadWindow, profile}) => {
         </Typography>
         </div>
 
-        { own &&
+        { !own &&
           <div className={classes.settings}>
-            <Button disableFocusRipple component="div" variant="outlined" className={classes.button}>
-              <Typography component="span" variant="body1">
-                edit profile
-              </Typography>
-            </Button>
-            <SettingsIcon/>
+            <FollowButton
+              updating={statusUpdating}
+              followFn={follow}
+              unfollowFn={stopFollowing}
+              styleClassname={followingStatus ? classes.buttonFollow : classes.buttonUnfollow }
+              follow={followingStatus} />
+
           </div>
         }
 

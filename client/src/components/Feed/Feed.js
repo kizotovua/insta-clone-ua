@@ -24,9 +24,7 @@ export const Feed = ({ subscriptions:{ recommendations, following }}) => {
 
   async function getPosts() {
     let ids;
-
    try {
-
      if(following.length < 3) {
        ids = [...following, ...recommendations]
 
@@ -64,7 +62,6 @@ export const Feed = ({ subscriptions:{ recommendations, following }}) => {
        const postsUpdates = data.reverse()
        setFeed([...feed,...postsUpdates]);
      }
-
    } catch (err) {
      setError('Feed loading failed...');
      console.error(err.message)

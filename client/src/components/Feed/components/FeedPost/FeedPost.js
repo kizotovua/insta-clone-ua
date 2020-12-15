@@ -63,13 +63,13 @@ export const FeedPost = ({postID, currentComments, currentLikes, title, date, au
     if(currentComments.length) {
       setComments(currentComments.reverse());
     }
-  }, []);
+  }, [currentComments]);
 
   React.useEffect(() => {
     if(currentLikes.length) {
       setLikes(currentLikes);
     }
-  }, [])
+  }, [currentLikes]);
 
   function updateLikes() {
     setLoading(true);
@@ -227,7 +227,7 @@ export const FeedPost = ({postID, currentComments, currentLikes, title, date, au
                              username={c.username}
                              date={c.date}
                              updateFn={updateComments}/>
-                  )
+                  );
                 }
               })}
             </CardContent>

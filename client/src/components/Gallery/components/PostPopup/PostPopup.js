@@ -50,7 +50,7 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
     }
   }, [newCommentText]);
 
-  useEffect(updateComments, [])
+  useEffect(updateComments, []);
   useEffect(updateLikes, [])
 
   function updateLikes() {

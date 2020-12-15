@@ -16,13 +16,10 @@ import useStyles from "./styles";
 
 const ProfilePage = (props) => {
   const { token } = useContext(AuthContext),
+        {  match: { params: {id} } } = props,
         { loading, setLoading, error, setError } = useHTTP(),
         [ popupUploadOpen, setPopupUploadOpen] = useState(false),
-        [ profile, setProfile] = useState(null),
-        {  match: { params: {id} } } = props;
-
-  const classes = useStyles();
-
+        [ profile, setProfile] = useState(null);
 
   useEffect(profileSetter, [id]);
 
@@ -49,6 +46,7 @@ const ProfilePage = (props) => {
     profileSetter();
   };
 
+  const classes = useStyles();
 
   return (
     <Container component="main" className={classes.page} maxWidth="md">

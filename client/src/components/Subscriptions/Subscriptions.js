@@ -50,13 +50,13 @@ const Subscriptions = ({ profiles, suggestionMode }) => {
         <div className={classes.list}>
           <List>
             {
-              profiles.map(profile => {
+              profiles.map((profile,index) => {
                 const {id, username, avatar} = profile;
                 return <Item profileID={id}
+                             key={index * Math.random()}
                              username={username}
                              avatar={avatar}
-                             suggestionMode={suggestionMode}
-                             key={id} />
+                             suggestionMode={suggestionMode} />
               })
             }
 

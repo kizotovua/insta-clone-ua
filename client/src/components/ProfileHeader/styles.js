@@ -35,10 +35,18 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems:"center"
   },
-  button: {
+  buttonUnfollow: {
+    boxSizing: 'border-box',
     textTransform: "capitalize",
     color: grey[800],
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
+    border: '1px solid lightgray'
+  },
+  buttonFollow: {
+    boxSizing: 'border-box',
+    textTransform: "capitalize",
+    marginRight: theme.spacing(1),
+    border: '1px solid lightgray',
   },
   statistics: {
     gridColumn: "1/3",

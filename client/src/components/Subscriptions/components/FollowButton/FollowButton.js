@@ -4,20 +4,20 @@ import useStyles from "./styles";
 import PropTypes from 'prop-types';
 
 
-const FollowButton = ({updating, followFn, unfollowFn, follow}) => {
+const FollowButton = ({updating, followFn, unfollowFn, follow, styleClassname, buttonText}) => {
   const classes = useStyles();
 
   const mode = {
     follow: {
       text: "follow",
-      style: classes.follow,
+      style: styleClassname || classes.follow,
       color: "primary",
       variant: "text",
       handler: followFn,
     },
     unfollow: {
-      text: "unfollow",
-      style: classes.unfollow,
+      text: buttonText || "unfollow",
+      style: styleClassname || classes.unfollow,
       color: "default",
       variant: "text",
       handler: unfollowFn
@@ -27,8 +27,8 @@ const FollowButton = ({updating, followFn, unfollowFn, follow}) => {
  let text, style, color, variant, handler;
 
  follow
- ? { follow:{ text, style, color, variant, handler } } = mode
- : { unfollow:{ text, style, color, variant, handler } }  = mode;
+ ? { follow:    { text, style, color, variant, handler } } = mode
+ : { unfollow:  { text, style, color, variant, handler } }  = mode;
 
   return (
     <Button
@@ -49,11 +49,16 @@ export default FollowButton;
 FollowButton.propTypes = {
   updating: PropTypes.bool,
   followFn: PropTypes.func.isRequired,
-  unfollowFn: PropTypes.func.isRequired,
-  follow: PropTypes.bool
+  unfollowFn: PropTypes.func,
+  follow: PropTypes.bool,
+  styleClassname: PropTypes.string,
+  buttonText: PropTypes.string
 }
 
 FollowButton.defaultProps = {
   updating: false,
-  follow: false
+  follow: false,
+  unfollowFn: () => {},
+  styleClassname: null,
+  buttonText: null
 }

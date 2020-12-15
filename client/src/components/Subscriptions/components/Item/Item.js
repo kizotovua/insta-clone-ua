@@ -34,9 +34,7 @@ const Item = ({ profileID, username, avatar, suggestionMode }) => {
   }
 
   const stopFollowing = async () => {
-
     setStatusUpdating(true);
-
     try {
       const res = await subscriptionAPI(auth, profileID, true);
 

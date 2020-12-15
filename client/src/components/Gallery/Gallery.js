@@ -16,7 +16,7 @@ export default function Gallery({ profile, openUploadWindow, profileUpdater }) {
     if(userID === profile.id) {
       setOwn(true);
     }
-  },[profile]);
+  },[profile,userID]);
 
   const containerRef = useRef();
   const { width } = useResize(containerRef);
