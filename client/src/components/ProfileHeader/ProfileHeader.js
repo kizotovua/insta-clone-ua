@@ -122,9 +122,7 @@ const ProfileHeader = ({openUploadWindow, profile}) => {
                       className={classes.addIcon}
                       onClick={openUploadWindow}
                       aria-label= "add photo">
-            <AddToPhotosOutlinedIcon
-              fontSize="large"
-            />
+            <AddToPhotosOutlinedIcon fontSize="large" />
           </IconButton>
           <div>
             <Typography variant="body2">

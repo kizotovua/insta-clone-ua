@@ -6,10 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import IconButton from "@material-ui/core/IconButton";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Comment from "../../../shared/Comment/Comment";
 import {useHTTP} from "../../../../hooks/http.hook";
 import {ProfileContext} from "../../../../context/ProfileContext";
 import CommentTextArea from "../../../shared/CommentTextArea/CommentTextArea";
+import AlertDialog from "../../../shared/AlertDialog/AlertDialog";
 import {AuthContext} from "../../../../context/AuthContext";
 import {dateOptions} from "../../../../utils/variables";
 import getPostById from "../../../../utils/api/getPostById";
@@ -20,12 +22,19 @@ import useStyles from './styles';
 import PropTypes from 'prop-types';
 
 
-export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: caption,username,avatar }}) => {
+export const PostPopup = ({ isOpen,
+                            isOwnProfile,
+                            handleClose,
+                            removePost,
+                            handleCloseAlert,
+                            handleOpenAlert,
+                            alertPopupOpen,
+                            data:{ postID,image,date,
+                            title: caption,username,avatar }}) => {
+
   const { token, userID } = useContext(AuthContext);
-  const {profile: {avatar: userAvatar, username: nickName }} = useContext(ProfileContext);
-
+  const {profile: { avatar: userAvatar, username: nickName }} = useContext(ProfileContext);
   const { loading, setLoading } = useHTTP();
-
 
   const commentsInitial = [{
     _id: '',
@@ -51,7 +60,7 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
   }, [newCommentText]);
 
   useEffect(updateComments, []);
-  useEffect(updateLikes, [])
+  useEffect(updateLikes, []);
 
   function updateLikes() {
     setLoading(true);
@@ -80,7 +89,7 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
         getComments(postID, token)
           .then(res => setComments(res.reverse()))
           .then(() => setNewCommentText(''))
-      })
+      });
   };
 
   const likeThisPost = (ev) => {
@@ -90,12 +99,18 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
         if(!res.errors) {
           updateLikes();
         }
-      })
+      });
   }
 
   const classes = useStyles();
   return (
     <>
+      <AlertDialog titleText= "Are you sure want to remove?"
+                   caption="Press confirm to delete this post"
+                   handleClose={handleCloseAlert}
+                   isOpen={alertPopupOpen}
+                   confirmHandler={removePost} />
+
       <Modal
         open={isOpen}
         onClose={handleClose}
@@ -104,7 +119,7 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
         className={classes.root}
       >
         <div className={classes.paper}>
-          <Image
+          <Image onClick={likeThisPost}
                  cover
                  imageStyle={{width: "100%", height:"100%"}}
                  color="rgba(255,255,255,0.1)"
@@ -113,12 +128,22 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
 
           <div className={classes.caption}>
             <div className={classes.author}>
-              <Avatar className={classes.avatar} src={avatar}/>
-              <div>
+              <div className={classes.userDataWrapper}>
+                <Avatar className={classes.avatar} src={avatar}/>
                 <Typography className={classes.username} >
                 {username}
               </Typography>
               </div>
+
+              { isOwnProfile &&
+              <IconButton disableFocusRipple
+                          className={classes.removeIcon}
+                          onClick={handleOpenAlert}
+                          aria-label= "remove post">
+                <DeleteForeverIcon />
+              </IconButton>
+              }
+
             </div>
 
             <div className={classes.postCaption}>
@@ -126,15 +151,20 @@ export const PostPopup = ({ isOpen,handleClose, data:{ postID,image,date,title: 
                 {caption}
               </Typography>
             </div>
+
             <div className={classes.title}>
               <div>
                 <Typography className={classes.date} variant="body2" color="textSecondary" >
                   {publishedDate}
                 </Typography>
               </div>
-              <IconButton disabled={loading} onClick={likeThisPost} aria-label="like">
-                {isCurrentUserLike && <FavoriteIcon color="secondary"/>}
-                {!isCurrentUserLike && <FavoriteBorderIcon/>}
+              <IconButton className={classes.likeIcon}
+                          disableFocusRipple
+                          disabled={loading}
+                          onClick={likeThisPost}
+                          aria-label="like">
+                {isCurrentUserLike && <FavoriteIcon  color="secondary"/>}
+                {!isCurrentUserLike && <FavoriteBorderIcon />}
               </IconButton>
             </div>
 
@@ -174,9 +204,15 @@ export default PostPopup;
 PostPopup.propTypes = {
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
-  data: PropTypes.object
+  data: PropTypes.object,
+  isOwnProfile:PropTypes.bool.isRequired,
+  removePost:PropTypes.func.isRequired,
+  handleCloseAlert:PropTypes.func.isRequired,
+  handleOpenAlert:PropTypes.func.isRequired,
+  alertPopupOpen:PropTypes.bool
 }
 
 PostPopup.defaultProps = {
-  isOpen: false
+  isOpen: false,
+  alertPopupOpen: false
 }

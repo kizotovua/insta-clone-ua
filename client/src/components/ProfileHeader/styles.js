@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
       height: "95px",
     },
   },
-
   toolbar: {
     gridColumn: "2/4",
     display: "grid",
@@ -93,7 +92,6 @@ const useStyles = makeStyles(theme => ({
       background: "transparent"
     }
   }
-
 }));
 
 export default useStyles;

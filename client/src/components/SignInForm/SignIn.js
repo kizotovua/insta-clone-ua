@@ -16,6 +16,7 @@ import Loader from "../shared/Loader/Loader";
 import getRecommendations from "../../utils/api/getRecommendations";
 import Copyright from "../shared/Copyright/Copyright";
 import AlertSnackbar from "../shared/AlertSnackbar/AlertSnackbar";
+import {alertErrorTimeout} from "../../utils/variables";
 import useStyles from "./styles";
 
 
@@ -24,7 +25,6 @@ export default function SignIn() {
   const auth = useContext(AuthContext);
   const profile = useContext(ProfileContext);
   const  { request, error, setError, resetError } = useHTTP();
-  const errorTimeout = 6000; //msc
   const [fileInputState] = useState('');
   const [previewSource, setPreviewSource] = useState('');
   const [loading, setLoading] = useState(false);
@@ -219,7 +219,7 @@ export default function SignIn() {
 
     <Container component="main" maxWidth="xs">
 
-      <AlertSnackbar status={error} text={error} msgType="error" timeout={errorTimeout}/>
+      <AlertSnackbar status={error} text={error} msgType="error" timeout={alertErrorTimeout}/>
 
       <div className={classes.paper}>
         <div className={classes.icons}>

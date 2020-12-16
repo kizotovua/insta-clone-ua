@@ -8,6 +8,7 @@ import fetchPosts from "../../utils/api/fetchPosts";
 import fetchProfiles from "../../utils/api/fetchProfiles";
 import FeedPost from "./components/FeedPost/FeedPost";
 import AlertSnackbar from "../shared/AlertSnackbar/AlertSnackbar";
+import {alertErrorTimeout} from "../../utils/variables";
 
 export const Feed = ({ subscriptions:{ recommendations, following }}) => {
  const  classes = useStyles();
@@ -15,7 +16,6 @@ export const Feed = ({ subscriptions:{ recommendations, following }}) => {
  const [ feed, setFeed ] = useState([]),
        [ start, setStart ] = useState(0),
        { error, setError } = useHTTP(),
-       errorTimeout = 6000, //msc
        { token } = useContext(AuthContext);
 
   const quantityLoaded = 3;
@@ -70,7 +70,7 @@ export const Feed = ({ subscriptions:{ recommendations, following }}) => {
 
   return (
         <>
-        <AlertSnackbar status={error} text={error} msgType="error" timeout={errorTimeout}/>
+        <AlertSnackbar status={error} text={error} msgType="error" timeout={alertErrorTimeout}/>
           <InfiniteScroll
             className={classes.feedItems}
             dataLength={feed.length}

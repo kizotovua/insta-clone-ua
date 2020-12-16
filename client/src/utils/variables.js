@@ -7,7 +7,6 @@ export const mdScreen = theme.breakpoints.values.md;
 export const lgScreen = theme.breakpoints.values.lg;
 export const xlScreen = theme.breakpoints.values.xl;
 
-
 export const dateOptions = {
   year: 'numeric',
   month: 'numeric',
@@ -16,3 +15,5 @@ export const dateOptions = {
   minute: 'numeric',
   hour12: false
 };
+
+export const alertErrorTimeout = 6000 // msc

@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     gridColumn: "1/2",
+    cursor: "pointer",
   },
   caption: {
     gridColumn: "2/3",
@@ -44,15 +45,27 @@ const useStyles = makeStyles((theme) => ({
   },
   author: {
     display: "flex",
+    justifyContent: 'space-between',
     alignItems: "center",
     padding: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
+  userDataWrapper: {
+    display: "flex",
+    alignItems: "center"
   },
   username: {
     color: theme.palette.text.primary,
-    fontSize: "0.8em",
+    fontSize: "0.9em",
   },
   avatar: {
     marginRight: theme.spacing(1)
+  },
+  removeIcon: {
+    padding: theme.spacing(.5),
+    '&:hover':{
+      background: 'transparent'
+    }
   },
   postCaption: {
     paddingLeft: theme.spacing(1),
@@ -69,6 +82,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    marginBottom: theme.spacing(1)
+  },
+  likeIcon: {
+    padding: theme.spacing(.5),
+    '&:hover':{
+      background: 'transparent'
+    }
   },
   comments: {
     flexGrow: 1,
@@ -88,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "5em"
     }
   },
-
   textarea: {
     marginTop: "auto"
   }

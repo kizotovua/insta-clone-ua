@@ -23,10 +23,9 @@ export const useProfile = () => {
       following.push(id);
 
     } else {
-        const index = following.indexOf(id);
+      const index = following.indexOf(id);
       following.splice(index, 1);
       recommendations.push(id);
-      console.log(following);
     }
 
     const profileUpdated = {
@@ -49,7 +48,6 @@ export const useProfile = () => {
       setProfile(profileUpdated);
       localStorage.setItem(storageName, JSON.stringify(profileUpdated));
     }
-
   }, [])
 
   useEffect(() => {

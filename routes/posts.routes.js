@@ -1,4 +1,5 @@
 const {Router} = require('express');
+const { cloudinary } = require('../utils/cloudinary');
 const auth = require('../middlerware/auth.middleware');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
@@ -123,13 +124,21 @@ router.post('/create',auth, async (req, res) => {
 //api/posts/remove
 router.delete('/remove',auth, async (req, res) => {
 
-  const { postID } = req.body;
-
+  const { postID, cloudinaryPublicId } = req.body;
+  console.log(cloudinaryPublicId);
   try {
     await Post.deleteOne({'_id': postID});
+    await Comment.deleteMany({ postID });
+
+    const imageRemovalStatus = await cloudinary.uploader.destroy(cloudinaryPublicId, (error, result) => {
+      return  result
+    });
+
     res.json({
-      message: `post id:${postID} has been removed`
-    })
+      message: `post id:${postID} has been removed from mongoDB`,
+      cloudinaryResponse: imageRemovalStatus
+    });
+
   } catch (error) {
     res.status(500).json({
       message: "Can't delete post: Something went wrong",
@@ -137,7 +146,6 @@ router.delete('/remove',auth, async (req, res) => {
     });
   }
 });
-
 
 //api/posts/:id/likes
 router.put('/:id/likes',auth, async (req, res) => {

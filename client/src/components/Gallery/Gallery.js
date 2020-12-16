@@ -37,6 +37,7 @@ export default function Gallery({ profile, openUploadWindow, profileUpdater }) {
      <div ref={containerRef} className={classes.root}>
        { !isEmpty && posts.map( post => (
            <Post
+             isOwn={own}
              width={width/columns}
              postID = {post._id}
              profile={profile}
