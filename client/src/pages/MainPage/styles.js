@@ -2,10 +2,16 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   page: {
-    padding: "100px 0 0 0",
+    paddingTop: theme.spacing(10),
     display: "grid",
     gridTemplateColumns: "68% 32%",
+
+    [theme.breakpoints.down('sm')]: {
+      display: "grid",
+      gridTemplateColumns: "1fr",
+    },
   },
+
   feed: {
     gridColumn: "1/2"
   },
@@ -19,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "flex-end",
     justifyContent: "flex-start",
+
+    [theme.breakpoints.down('sm')]: {
+      display: "none",
+    },
   }
 }));
 

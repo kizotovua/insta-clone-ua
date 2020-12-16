@@ -1,8 +1,17 @@
 import {makeStyles} from "@material-ui/core/styles";
+import { mdScreen, smScreen } from "../../utils/variables";
 
 const useStyles = makeStyles((theme) => ({
   page: {
-    padding: "100px 0 0 0",
+    paddingTop: theme.spacing(10),
+    maxWidth: smScreen,
+
+    [theme.breakpoints.up('xs')]: {
+     maxWidth: smScreen
+    },
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: mdScreen
+    },
   },
   errorTitleText: {
     marginBottom: theme.spacing(5),
@@ -17,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     width: "100%"
   }
-
-
 }));
 
 export default useStyles;

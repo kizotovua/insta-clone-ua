@@ -1,6 +1,4 @@
 import {makeStyles} from "@material-ui/core";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import React from "react";
 
 const useStyles = makeStyles((theme) => ({
  root: {

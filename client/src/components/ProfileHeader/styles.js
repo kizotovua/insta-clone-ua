@@ -1,5 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { grey } from "@material-ui/core/colors"
+import {mdScreen, smScreen} from "../../utils/variables";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -12,6 +13,14 @@ const useStyles = makeStyles(theme => ({
     gridColumn: "1/2",
     width: "150px",
     height: "150px",
+    [theme.breakpoints.down('md')]: {
+      width: "130px",
+      height: "130px",
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: "95px",
+      height: "95px",
+    },
   },
 
   toolbar: {
@@ -20,9 +29,9 @@ const useStyles = makeStyles(theme => ({
     gridTemplateColumns: "repeat(3, 1fr)",
     gridTemplateRows: "repeat(3, 1fr)",
     gridGap: theme.spacing(1),
-    alignItems: "center"
-  },
+    alignItems: "center",
 
+  },
   name: {
     color: grey[800],
     gridColumn: '1/2',
@@ -51,11 +60,19 @@ const useStyles = makeStyles(theme => ({
   statistics: {
     gridColumn: "1/3",
     display:"flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+
+    [theme.breakpoints.down('xs')]: {
+    transform: "scale(.75)"
+    },
   },
   username: {
     gridRow: "3/4",
-    gridColumn: "1/2"
+    gridColumn: "1/2",
+    [theme.breakpoints.down('sm')]: {
+      display: "none"
+    },
+
   },
   iconWrapper: {
     display: "flex",

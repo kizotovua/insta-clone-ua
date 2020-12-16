@@ -15,11 +15,11 @@ const theme = createMuiTheme({
   },
   breakpoints: {
     values: {
-      xs: 0,
+      xs: 300,
       sm: 480,
       md: 760,
       lg: 1040,
-      xl: 1280,
+      xl: 1400,
     },
   },
 });

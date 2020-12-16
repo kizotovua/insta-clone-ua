@@ -1,9 +1,12 @@
 import {useEffect, useState} from "react";
-import {mediumScreen} from "../utils/variables";
+import defineWidth from "../utils/defineWidth";
+import {lgScreen, mdScreen} from "../utils/variables";
 
 
-export const useResize = (myRef) => {
-  const [width, setWidth] = useState(mediumScreen)
+export const useResize = (myRef, screenSize) => {
+
+
+  const [width, setWidth] = useState(screenSize)
   const [height, setHeight] = useState(0)
 
   useEffect(() => {

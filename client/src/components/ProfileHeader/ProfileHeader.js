@@ -73,7 +73,7 @@ const ProfileHeader = ({openUploadWindow, profile}) => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.root} fixed>
+    <Container className={classes.root}>
 
       { own
         ?  <UserAvatar classname={classes.avatar}/>
