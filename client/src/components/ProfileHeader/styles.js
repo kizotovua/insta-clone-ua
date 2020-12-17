@@ -1,25 +1,32 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { grey } from "@material-ui/core/colors"
-import {mdScreen, smScreen} from "../../utils/variables";
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
     padding: theme.spacing(2),
-  },
 
+    [theme.breakpoints.down('sm')]: {
+      padding: 0,
+      alignItems: "center"
+    },
+  },
   avatar: {
     gridColumn: "1/2",
     width: "150px",
     height: "150px",
-    [theme.breakpoints.down('md')]: {
-      width: "130px",
-      height: "130px",
-    },
+
     [theme.breakpoints.down('sm')]: {
-      width: "95px",
-      height: "95px",
+      width: "120px",
+      height: "120px",
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      width: "75px",
+      height: "75px",
+      justifySelf:"center"
     },
   },
   toolbar: {
@@ -30,48 +37,76 @@ const useStyles = makeStyles(theme => ({
     gridGap: theme.spacing(1),
     alignItems: "center",
 
+    [theme.breakpoints.down('xs')]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
   },
-  name: {
+  nameWrapper: {
     color: grey[800],
     gridColumn: '1/2',
     gridRow: '1/2',
+  },
+  name: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: "1.2em",
+      marginRight: theme.spacing(2)
+    },
   },
   settings: {
     gridColumn: "2/4",
     display: "flex",
     alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems:"center"
+    justifyContent: 'flex-end',
+    alignItems:"center",
+
+    [theme.breakpoints.down('xs')]: {
+      width: "100%"
+    },
   },
+
   buttonUnfollow: {
     boxSizing: 'border-box',
     textTransform: "capitalize",
     color: grey[800],
     marginRight: theme.spacing(1),
-    border: '1px solid lightgray'
+    border: '1px solid lightgray',
   },
   buttonFollow: {
     boxSizing: 'border-box',
     textTransform: "capitalize",
-    marginRight: theme.spacing(1),
     border: '1px solid lightgray',
+    width: "50%",
+
+    [theme.breakpoints.down('xs')]: {
+      width: "100%"
+    },
   },
   statistics: {
     gridColumn: "1/3",
     display:"flex",
     justifyContent: "space-between",
-
     [theme.breakpoints.down('xs')]: {
-    transform: "scale(.75)"
+      display: "none",
+    },
+  },
+  statisticsAmount: {
+    display: "block",
+    fontSize: "1.3em",
+    marginRight: theme.spacing(2),
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: "1em",
     },
   },
   username: {
     gridRow: "3/4",
     gridColumn: "1/2",
-    [theme.breakpoints.down('sm')]: {
-      display: "none"
-    },
 
+    [theme.breakpoints.down('xs')]: {
+      display: "none",
+    },
   },
   iconWrapper: {
     display: "flex",
@@ -80,17 +115,28 @@ const useStyles = makeStyles(theme => ({
     alignSelf:"center",
     alignItems: "center",
     color: "transparent",
+    textTransform:"capitalize",
     transition: "color .35s",
     "&:hover": {
       color: "grey"
-    }
+    },
+    [theme.breakpoints.down('xs')]: {
+      color: "grey",
+      width: "100%",
+    },
   },
   addIcon: {
     width: theme.spacing(6.5),
     padding: theme.spacing(1),
     "&:hover": {
       background: "transparent"
-    }
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+      width: "35px",
+      height: "35px",
+      marginRight: theme.spacing(1)
+    },
   }
 }));
 

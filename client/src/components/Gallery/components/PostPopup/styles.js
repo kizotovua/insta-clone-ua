@@ -10,23 +10,31 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     display: "grid",
-    gridTemplateColumns: "60% 40%",
-    height: "65vh",
+    width: "250px",
+    height: "250px",
+    gridTemplateColumns: "100% 0",
 
     [theme.breakpoints.up('xs')]: {
-      width: "95%",
+      width: "300px",
+      height: "300px"
     },
     [theme.breakpoints.up('sm')]: {
-      width: "90%",
+      width: "400px",
+      height: "350px"
     },
     [theme.breakpoints.up('md')]: {
-      width: "70%",
+      gridTemplateColumns: "65% 35%",
+      width: "600px",
+      height: "400px"
     },
     [theme.breakpoints.up('lg')]: {
-      width: "55%",
+      gridTemplateColumns: "60% 40%",
+      width: "860px",
+      height: "640px",
     },
     [theme.breakpoints.up('xl')]: {
-      width: "45%",
+      width: "1024px",
+      height: "720px",
     },
     outline: "none"
   },
@@ -48,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: "center",
     padding: theme.spacing(1),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   userDataWrapper: {
     display: "flex",

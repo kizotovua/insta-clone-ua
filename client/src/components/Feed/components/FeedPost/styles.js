@@ -7,15 +7,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(8)
   },
   header: {
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
     paddingTop: theme.spacing(.5),
     paddingBottom: theme.spacing(.5),
   },
   media: {
     width: "100%",
     paddingTop: "75%",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   authorName: {
     fontSize: "1em",
@@ -28,9 +28,13 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
+    padding: theme.spacing(0.5)
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  postActionButton: {
+    padding: theme.spacing(0.5),
   },
   avatar: {
     backgroundColor: red[500],
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold"
   },
   date: {
-    marginTop: theme.spacing(1),
+    margin: "8px 0",
     fontSize: "0.95em",
     display: "block"
   },
@@ -69,12 +73,16 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardActions: {
-    padding: 0
+    padding: "0 8px"
   },
   commentExpand: {
-    marginLeft: "auto"
+    marginLeft: "auto",
+  },
+  expandIconText: {
+    [theme.breakpoints.down('xs')]:{
+      fontSize: '0.8em'
+    },
   }
-
 }));
 
 export default useStyles;

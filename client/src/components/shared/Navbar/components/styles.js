@@ -1,16 +1,8 @@
 import {makeStyles} from "@material-ui/core/styles";
-import {mdScreen, smScreen} from "../../../../utils/variables";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    maxWidth: smScreen,
-    [theme.breakpoints.up('xs')]: {
-      maxWidth: smScreen
-    },
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: mdScreen
-    },
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -32,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
   homeIconBtn: {
     '&:hover': {
       background: "transparent"
+    }
+  },
+  removal: {
+    fontSize: ".8em",
+    "&:hover": {
+      backgroundColor: "red",
+      color: "white"
     }
   }
 }));

@@ -24,6 +24,7 @@ import PropTypes from 'prop-types';
 
 export const PostPopup = ({ isOpen,
                             isOwnProfile,
+                            isRemovalProcessing,
                             handleClose,
                             removePost,
                             handleCloseAlert,
@@ -107,6 +108,7 @@ export const PostPopup = ({ isOpen,
     <>
       <AlertDialog titleText= "Are you sure want to remove?"
                    caption="Press confirm to delete this post"
+                   disabledButton={isRemovalProcessing}
                    handleClose={handleCloseAlert}
                    isOpen={alertPopupOpen}
                    confirmHandler={removePost} />

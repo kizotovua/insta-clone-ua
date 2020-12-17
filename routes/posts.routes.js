@@ -125,14 +125,13 @@ router.post('/create',auth, async (req, res) => {
 router.delete('/remove',auth, async (req, res) => {
 
   const { postID, cloudinaryPublicId } = req.body;
-  console.log(cloudinaryPublicId);
+
   try {
     await Post.deleteOne({'_id': postID});
     await Comment.deleteMany({ postID });
 
-    const imageRemovalStatus = await cloudinary.uploader.destroy(cloudinaryPublicId, (error, result) => {
-      return  result
-    });
+    const imageRemovalStatus = await cloudinary.uploader
+          .destroy(cloudinaryPublicId,(error, result) => result);
 
     res.json({
       message: `post id:${postID} has been removed from mongoDB`,

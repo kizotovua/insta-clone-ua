@@ -81,8 +81,8 @@ const ProfileHeader = ({openUploadWindow, profile}) => {
       }
 
       <Box className={classes.toolbar}>
-        <div className={classes.name}>
-          <Typography component="h2" variant="h5">
+        <div className={classes.nameWrapper}>
+          <Typography className={classes.name} component="h2" variant="h5">
           {profile.username}
         </Typography>
         </div>
@@ -95,18 +95,17 @@ const ProfileHeader = ({openUploadWindow, profile}) => {
               unfollowFn={stopFollowing}
               styleClassname={followingStatus ? classes.buttonFollow : classes.buttonUnfollow }
               follow={followingStatus} />
-
           </div>
         }
 
         <div className={classes.statistics}>
-          <Typography component="div">
+          <Typography className={classes.statisticsAmount} component="span">
             <strong>{profile.posts.length}</strong> posts
           </Typography>
-          <Typography component="div">
+          <Typography className={classes.statisticsAmount} component="span">
             <strong>{profile.follows.length}</strong> follows
           </Typography>
-          <Typography component="div">
+          <Typography className={classes.statisticsAmount} component="span">
             <strong>{profile.following.length}</strong> following
           </Typography>
         </div>
@@ -126,7 +125,7 @@ const ProfileHeader = ({openUploadWindow, profile}) => {
           </IconButton>
           <div>
             <Typography variant="body2">
-              Add new posts
+              share new posts
             </Typography>
           </div>
         </div>

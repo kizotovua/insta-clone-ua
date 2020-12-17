@@ -5,9 +5,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PropTypes from 'prop-types';
 
 
-export default function AlertDialog({ titleText, caption, handleClose, confirmHandler, isOpen }) {
+export default function AlertDialog({ titleText,
+                                      caption,
+                                      handleClose,
+                                      confirmHandler,
+                                      isOpen,
+                                      disabledButton }) {
   return (
     <div>
       <Dialog
@@ -26,11 +32,27 @@ export default function AlertDialog({ titleText, caption, handleClose, confirmHa
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={confirmHandler} color="primary" autoFocus>
+          <Button disabled={disabledButton} onClick={confirmHandler} color="primary" autoFocus>
             Confirm
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
+}
+
+AlertDialog.propTypes = {
+  titleText: PropTypes.string,
+  caption: PropTypes.string,
+  handleClose: PropTypes.func.isRequired,
+  confirmHandler: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
+  disabledButton: PropTypes.bool,
+}
+
+AlertDialog.defaultProps = {
+  titleText: '',
+  caption: '',
+  isOpen: false,
+  disabledButton: false
 }

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fafafa",
     '&::-webkit-scrollbar': {
       width: '0.3em',
+      height: '0.3em'
     },
     '&::-webkit-scrollbar-track': {
       boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
@@ -34,15 +35,28 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     marginBottom: theme.spacing(3)
+
   },
   userAvatar: {
     width: "55px",
     height: "55px",
-    marginRight: theme.spacing(3)
+    marginRight: theme.spacing(3),
+
+    [theme.breakpoints.down('lg')]: {
+      marginRight: theme.spacing(2),
+    },
+    [theme.breakpoints.down('md')]:{
+      width: "45px",
+      height: "45px",
+    },
   },
   userName: {
     color: theme.palette.text.secondary,
-    fontSize: "0.9em"
+    fontSize: "0.9em",
+
+    [theme.breakpoints.down('lg')]: {
+      fontSize: "0.8em",
+    },
   },
   titleBoxHeader: {
     padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
@@ -53,7 +67,12 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     textTransform: "capitalize",
     fontWeight: 600,
-    fontSize: "1em"
+    fontSize: "1em",
+
+    [theme.breakpoints.down('lg')]: {
+      fontSize: "0.9em",
+    },
+
   },
 
 }));

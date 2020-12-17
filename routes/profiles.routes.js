@@ -2,6 +2,10 @@ const {Router} = require('express');
 const mongoose = require('mongoose');
 const auth = require('../middlerware/auth.middleware');
 const User = require('../models/User');
+const Post = require('../models/Post');
+const Comment = require('../models/Comment');
+const { cloudinary } = require('../utils/cloudinary');
+
 
 const router = Router();
 
@@ -96,7 +100,7 @@ router.put('/:id/avatar',auth, async (req, res) => {
   }
 
 });
-
+//api/profiles/:id/subscribe
 router.put('/:id/subscribe',auth, async (req, res) => {
   try {
     const followerID = req.params.id;
@@ -129,7 +133,7 @@ router.put('/:id/subscribe',auth, async (req, res) => {
     });
   }
 });
-
+//api/profiles/:id/unsubscribe
 router.delete('/:id/unsubscribe',auth, async (req, res) => {
   try {
     const followerID = req.params.id;
@@ -162,6 +166,30 @@ router.delete('/:id/unsubscribe',auth, async (req, res) => {
   } catch (error) {
     res.status(400).json({
       message: "Can't delete post, something went wrong",
+      errors: error.message
+    });
+  }
+});
+
+router.delete('/removeAccount',auth, async (req, res) => {
+
+  const { profileID, cloudinaryIDs } = req.body;
+
+  try {
+    await User.deleteOne({'_id': profileID});
+    await Post.deleteMany({ authorID: profileID });
+    await Comment.deleteMany({ userID: profileID });
+
+    const imageRemovalStatus = cloudinary.api.delete_resources([...cloudinaryIDs],
+      (error, result) => result);
+
+    res.json({
+      message: `Profile :${profileID} has been removed`,
+      cloudinaryResponse: imageRemovalStatus
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: "Can't delete profile: Something went wrong",
       errors: error.message
     });
   }

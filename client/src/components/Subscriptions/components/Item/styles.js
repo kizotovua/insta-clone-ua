@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(.5),
   },
   linkAvatar: {
-    width: "32px",
+    width: theme.spacing(4),
   },
   link: {
     textDecoration: "none",
@@ -19,13 +19,24 @@ const useStyles = makeStyles(theme => ({
     },
     '&::focus': {
       color: theme.palette.secondary
-    }
+    },
+
+    [theme.breakpoints.down('lg')]: {
+      fontSize: "0.85em",
+      overflowX: "hidden"
+    },
+
   },
   avatar: {
     width: "32px",
     height: "32px",
     display: "flex",
     justifyContent: "center",
+
+    [theme.breakpoints.down('lg')]: {
+      width: theme.spacing(3),
+      height: theme.spacing(3)
+    },
   }
 }));
 

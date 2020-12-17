@@ -1,10 +1,9 @@
 import {makeStyles} from "@material-ui/core/styles";
-import { mdScreen, smScreen } from "../../utils/variables";
+import {lgScreen, mdScreen, smScreen} from "../../utils/variables";
 
 const useStyles = makeStyles((theme) => ({
   page: {
     paddingTop: theme.spacing(10),
-    maxWidth: smScreen,
 
     [theme.breakpoints.up('xs')]: {
      maxWidth: smScreen

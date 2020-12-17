@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
    marginRight: theme.spacing(1)
   },
   username:{
-    fontSize: '0.85em',
+    fontSize: '0.9em',
+    color: theme.palette.text.primary,
+    textDecoration: "none"
   },
   date: {
    fontSize: "0.75em"

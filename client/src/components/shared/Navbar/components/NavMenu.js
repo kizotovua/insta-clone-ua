@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {useHistory}  from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -9,18 +9,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from "@material-ui/core/IconButton";
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import {AuthContext} from "../../../../context/AuthContext";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+import AlertDialog from "../../AlertDialog/AlertDialog";
+import {AuthContext} from "../../../../context/AuthContext";
 import {ProfileContext} from "../../../../context/ProfileContext";
+import deleteAccount from "../../../../utils/api/deleteAccount";
+import {useHTTP} from "../../../../hooks/http.hook";
 import useStyles from "./styles";
 
 export default function NavMenu() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [alertPopupOpen, setAlertPopupOpen] = useState(false);
+  const { loading, setLoading } = useHTTP();
   const anchorRef = React.useRef(null);
   const history = useHistory();
-  const { logout, userID } = useContext(AuthContext);
-  const { signOut } = useContext(ProfileContext);
+  const { logout, userID, token } = useContext(AuthContext);
+  const { signOut, profile: { posts } } = useContext(ProfileContext);
 
   const logoutHandler = (event) => {
     event.preventDefault();
@@ -28,6 +33,30 @@ export default function NavMenu() {
     logout();
     history.push('/login')
   }
+
+  const removeProfileHandler = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const imageIDs = posts.map(p => p.imgURL.slice(61, -4))
+      console.log(imageIDs);
+      const deleteRes = await deleteAccount(userID,imageIDs,token);
+
+      if(!deleteRes.errors) {
+        signOut();
+        logout();
+        history.push('/login')
+      }
+      setLoading(false);
+
+    } catch (e) {
+      setLoading(false);
+    }
+  }
+
+  const closeAlertPopup = () => setAlertPopupOpen(false);
+  const openAlertPopup = () => setAlertPopupOpen(true);
+
   const goFeed = (ev) => {
     ev.preventDefault();
     history.push('/feed')
@@ -66,6 +95,15 @@ export default function NavMenu() {
 
   return (
     <div className={classes.root}>
+      <>
+        <AlertDialog titleText= "Are you sure want to remove your profile?"
+                     caption="Please confirm deletion of all data related to your account"
+                     disabledButton={loading}
+                     handleClose={closeAlertPopup}
+                     isOpen={alertPopupOpen}
+                     confirmHandler={removeProfileHandler} />
+      </>
+
       <IconButton disableFocusRipple
                   className={classes.homeIconBtn}
                   onClick={goFeed}
@@ -93,6 +131,7 @@ export default function NavMenu() {
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={goMyProfile}>My account</MenuItem>
                     <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                    <MenuItem className={classes.removal} onClick={openAlertPopup}>Remove Account</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

@@ -1,26 +1,27 @@
 import {useEffect, useState} from "react";
-import defineWidth from "../utils/defineWidth";
-import {lgScreen, mdScreen} from "../utils/variables";
+import {lgScreen, mdScreen, smScreen, xsScreen} from "../utils/variables";
 
+export const useResize = (myRef) => {
+  let initialWidth;
+  if(window.screen.width >= lgScreen) {
+    initialWidth = mdScreen;
+  } else if (window.screen.width >= smScreen) {
+    initialWidth = smScreen
+  } else {
+    initialWidth = xsScreen;
+  }
 
-export const useResize = (myRef, screenSize) => {
-
-
-  const [width, setWidth] = useState(screenSize)
-  const [height, setHeight] = useState(0)
+  const [width, setWidth] = useState(initialWidth)
 
   useEffect(() => {
     const handleResize = () => {
       setWidth(myRef.current.offsetWidth)
-      setHeight(myRef.current.offsetHeight)
     }
-
     window.addEventListener('resize', handleResize)
-
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [myRef])
+  }, [])
 
-  return { width, height }
+  return { width }
 }

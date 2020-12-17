@@ -136,12 +136,12 @@ export const FeedPost = ({postID, currentComments, currentLikes, title, date, au
         <Card className={classes.root}>
           <CardHeader className={classes.header}
             avatar={
-              <Link data-testid="authorAvatar" to={`/profiles/${authorID}`}>
+              <Link to={`/profiles/${authorID}`}>
                 <Avatar src={avatar} className={classes.avatar} />
               </Link>
             }
             title={
-              <Link data-testid="authorName" className={classes.authorName} to={`/profiles/${authorID}`}>
+              <Link className={classes.authorName} to={`/profiles/${authorID}`}>
                 {author}
               </Link>
             }
@@ -163,26 +163,26 @@ export const FeedPost = ({postID, currentComments, currentLikes, title, date, au
           </CardContent>
 
           <CardActions className={classes.cardActions} disableSpacing>
-              <IconButton data-testid="likeButton" disabled={loading} onClick={likeThisPost} aria-label="like">
+              <IconButton className={classes.postActionButton} disabled={loading} onClick={likeThisPost} aria-label="like">
                   {isCurrentUserLike && <FavoriteIcon color="secondary"/>}
                   {!isCurrentUserLike && <FavoriteBorderIcon/>}
               </IconButton>
 
-            <Typography component="span" data-testid="likesAmount" color={"textSecondary"} variant={"body2"}>
+            <Typography component="span" color={"textSecondary"} variant={"body2"}>
               {likes.length}
             </Typography>
-            <IconButton aria-label="comment" onClick={() => setCommentInputOpen(!commentInputOpen)}>
+            <IconButton className={classes.postActionButton} aria-label="comment" onClick={() => setCommentInputOpen(!commentInputOpen)}>
               <ChatBubbleOutlineIcon />
             </IconButton>
-            <Typography component="span" data-testid="commentsAmount" color={"textSecondary"} variant={"body2"}>
+            <Typography component="span" color={"textSecondary"} variant={"body2"}>
               {!comments[0]._id  ? 0 : comments.length}
             </Typography>
             { comments.length >= 2 &&
               <>
                 <Box className={classes.commentExpand} aria-label="show more" >
-                  <Typography color="textSecondary" align="right" component="span">
-                    {!expanded && 'see all comments...'}
-                    { expanded && 'collapse...'}
+                  <Typography className={classes.expandIconText} variant="body2" color="textSecondary" align="right" component="span">
+                    {!expanded && 'see more...'}
+                    { expanded && 'minimize...'}
                   </Typography>
                 </Box>
                 <IconButton
@@ -214,7 +214,7 @@ export const FeedPost = ({postID, currentComments, currentLikes, title, date, au
 
           { comments.length >= 2 &&
           <Collapse ref={commentAreaRef} className={classes.collapse} in={expanded} timeout="auto" unmountOnExit>
-            <CardContent data-testid="comments" className={classes.comments}>
+            <CardContent className={classes.comments}>
 
               {comments.map((c, index) => {
                 if(index > 0) {

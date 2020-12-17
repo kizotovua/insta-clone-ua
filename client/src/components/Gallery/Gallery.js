@@ -5,8 +5,7 @@ import NullItem from "./components/NullItem";
 import Post from "./components/Post/Post";
 import {useResize} from "../../hooks/resize.hook";
 import {AuthContext} from "../../context/AuthContext";
-import defineWidth from "../../utils/defineWidth";
-import {lgScreen, mdScreen} from "../../utils/variables";
+
 
 export default function Gallery({ profile, openUploadWindow, profileUpdater }) {
 
@@ -14,16 +13,9 @@ export default function Gallery({ profile, openUploadWindow, profileUpdater }) {
   const [own, setOwn] = useState(false);
   const { posts } = profile;
 
-  const screen = defineWidth();
-  let initialWidth;
-
-  screen >= lgScreen
-  ? initialWidth = mdScreen
-  : initialWidth = screen;
-
-  const containerRef = useRef();
-  const { width } = useResize(containerRef, initialWidth);
   const columns = 3;
+  const containerRef = useRef();
+  const { width } = useResize(containerRef);
   const isEmpty = !posts.length;
 
   useEffect(() => {
@@ -38,7 +30,7 @@ export default function Gallery({ profile, openUploadWindow, profileUpdater }) {
        { !isEmpty && posts.map( post => (
            <Post
              isOwn={own}
-             width={width/columns}
+             width={width / columns}
              postID = {post._id}
              profile={profile}
              image={post.imgURL}
@@ -55,9 +47,9 @@ export default function Gallery({ profile, openUploadWindow, profileUpdater }) {
         <>
           { own &&
             <>
-              <NullItem key={0} popupOpen={openUploadWindow} width={width * 0.9 / columns } />
-              <NullItem key={1} popupOpen={openUploadWindow} width={width * 0.9 / columns } />
-              <NullItem key={2} popupOpen={openUploadWindow} width={width * 0.9 / columns } />
+              <NullItem key={0} popupOpen={openUploadWindow} width={width / columns } />
+              <NullItem key={1} popupOpen={openUploadWindow} width={width / columns } />
+              <NullItem key={2} popupOpen={openUploadWindow} width={width / columns } />
             </>
           }
         </>

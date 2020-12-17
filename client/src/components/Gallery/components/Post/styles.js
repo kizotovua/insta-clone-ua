@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     transition: 'opacity linear .1s',
     "&:hover": {
       opacity: ".65"
-    }
+    },
   },
   iconWrapper: {
     display: "flex",

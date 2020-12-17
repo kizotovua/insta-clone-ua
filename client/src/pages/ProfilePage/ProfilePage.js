@@ -49,7 +49,7 @@ const ProfilePage = (props) => {
   const classes = useStyles();
 
   return (
-    <Container component="main" className={classes.page} maxWidth="md">
+    <Container component="main" className={classes.page} fixed>
       { loading && <Loader/> }
       { profile &&
       <>

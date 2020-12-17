@@ -2,13 +2,14 @@ import React, {useContext, useState} from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import Typography from "@material-ui/core/Typography";
-import {gridGap} from "../../styles";
 import {cloudinaryURL} from "../../../../utils/variables";
 import useStyles from "./styles";
 import PostPopup from "../PostPopup/PostPopup";
 import deletePost from "../../../../utils/api/deletePost";
 import {AuthContext} from "../../../../context/AuthContext";
+import {useHTTP} from "../../../../hooks/http.hook";
 import PropTypes from 'prop-types';
+import {gridGap} from "../../styles";
 
 const Post = ({ postID,
                 width, image,
@@ -19,6 +20,7 @@ const Post = ({ postID,
 
   const [postPopupOpen, setPostPopupOpen] = useState(false);
   const [alertPopupOpen, setAlertPopupOpen] = useState(false);
+  const { loading, setLoading } = useHTTP();
   const { token } = useContext(AuthContext)
 
   const openPostModal = (ev) => {
@@ -35,19 +37,32 @@ const Post = ({ postID,
   const openAlertPopup = () => setAlertPopupOpen(true);
 
   async function removePost() {
+    setLoading(true);
     try {
       const deleteRes = await deletePost (postID, image.slice(61, -4),token);
 
       if(!deleteRes.errors) {
         closeAlertPopup();
         closePostModal();
+        setLoading(false);
       }
-    } catch (e) {}
+    } catch (e) {
+      setLoading(false);
+    }
   }
 
   const classes = useStyles();
   return (
-    <>
+
+    <div
+      className={classes.root}
+      style={{
+        width: `calc(${width}px - ${gridGap}px)`,
+        height:`calc(${width}px - ${gridGap}px)`,
+        position: 'relative',
+        backgroundImage: `url(${cloudinaryURL}insta_images/service/no-image_yraby4.jpg)`
+      }}>
+
       <PostPopup isOpen={postPopupOpen}
                  isOwnProfile={isOwn}
                  data={{image,postID,title,date,username,avatar}}
@@ -56,15 +71,8 @@ const Post = ({ postID,
                  alertPopupOpen={alertPopupOpen}
                  handleCloseAlert={closeAlertPopup}
                  handleOpenAlert={openAlertPopup}
+                 isRemovalProcessing={loading}
                  removePost={removePost} />
-
-    <div
-      style={{
-        width: `calc(${width}px - ${gridGap}px)`,
-        height:`calc(${width}px - ${gridGap}px)`,
-        position: 'relative',
-        backgroundImage: `url(${cloudinaryURL}insta_images/no-image_yraby4.jpg)`
-      }}>
 
       <div onClick={openPostModal} className={classes.cover}>
         <div className={classes.iconWrapper}>
@@ -86,7 +94,6 @@ const Post = ({ postID,
       </div>
       <img className={classes.image} src={image} alt={title}/>
     </div>
-    </>
   );
 };
 

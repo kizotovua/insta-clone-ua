@@ -7,6 +7,7 @@ import {AuthContext} from "../../../context/AuthContext";
 import deleteComment from "../../../utils/api/deleteComment";
 import useStyles from "./styles";
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const Comment = ({commentID, text, username, avatar, userID, date, updateFn}) => {
 
@@ -37,9 +38,13 @@ const Comment = ({commentID, text, username, avatar, userID, date, updateFn}) =>
   return (
     <div className={classes.root}>
       <div className={classes.author}>
-        <Avatar src={avatar} className={classes.avatar}/>
+        <Link to={`/profiles/${userID}`}>
+          <Avatar src={avatar} className={classes.avatar}/>
+        </Link>
         <div className={classes.usernameWrapper}>
-          <Typography className={classes.username} component="span">{username}</Typography>
+          <Link to={`/profiles/${userID}`} className={classes.username}>
+            {username}
+          </Link>
         </div>
         <div>
           <Typography className={classes.date} color="textSecondary" component="span">{publishedDate}</Typography>
