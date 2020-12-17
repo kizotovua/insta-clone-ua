@@ -25,7 +25,7 @@ export default function NavMenu() {
   const anchorRef = React.useRef(null);
   const history = useHistory();
   const { logout, userID, token } = useContext(AuthContext);
-  const { signOut, profile: { posts } } = useContext(ProfileContext);
+  const { signOut, profile: { posts, avatar } } = useContext(ProfileContext);
 
   const logoutHandler = (event) => {
     event.preventDefault();
@@ -38,9 +38,9 @@ export default function NavMenu() {
     event.preventDefault();
     setLoading(true);
     try {
-      const imageIDs = posts.map(p => p.imgURL.slice(61, -4))
-      console.log(imageIDs);
-      const deleteRes = await deleteAccount(userID,imageIDs,token);
+      const imageIDs = posts.map(p => p.imgURL.slice(61, -4));
+      const avatarId = avatar.slice(61, -4);
+      const deleteRes = await deleteAccount(userID,[...imageIDs, avatarId],token);
 
       if(!deleteRes.errors) {
         signOut();
