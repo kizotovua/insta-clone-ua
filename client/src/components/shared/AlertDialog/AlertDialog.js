@@ -17,22 +17,28 @@ export default function AlertDialog({ titleText,
   return (
     <div>
       <Dialog
+        data-testid="wrapper"
         open={isOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{titleText}</DialogTitle>
+        <DialogTitle data-testid="dialogTitle"
+                     id="alert-dialog-title">
+          {titleText}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText
+            data-testid="dialogText"
+            id="alert-dialog-description">
             {caption}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button data-testid="cancelButton" onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button disabled={disabledButton} onClick={confirmHandler} color="primary" autoFocus>
+          <Button data-testid="confirmButton" disabled={disabledButton} onClick={confirmHandler} color="primary" autoFocus>
             Confirm
           </Button>
         </DialogActions>
