@@ -24,4 +24,4 @@ To start app in dev mode:
 
 *   with express-server: `npm run dev`
 *   only react-app: `npm run client`
-*   only express: `npm run client`
+*   only express: `npm run server`
