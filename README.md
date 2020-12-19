@@ -21,6 +21,7 @@ In order to login please register any fake email or use following demo profiles:
 | vincent_torres@mail.com   | R!@HU7ze  |
 | bryanna_barnes@mail.com   | ?^Zj*24Q^ |
 
+app is available on heroku: https://insta-clone-ua.herokuapp.com/
 
 To start app in dev mode:
 
