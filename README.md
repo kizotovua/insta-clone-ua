@@ -3,6 +3,7 @@
 
 This app copies part of main features of real Instagram app in educational purposes.
 By this app you can create profile and upload photos, comment and like posts of other users.
+You can delete your own posts, comments and account you logged in.
 
 In order to login please register any fake email or use following demo profiles:
 
@@ -19,6 +20,7 @@ In order to login please register any fake email or use following demo profiles:
 | priscilla_carter@mail.com | g22+WYgDH |
 | vincent_torres@mail.com   | R!@HU7ze  |
 | bryanna_barnes@mail.com   | ?^Zj*24Q^ |
+
 
 To start app in dev mode:
 
