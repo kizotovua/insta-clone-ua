@@ -14,14 +14,11 @@ const Comment = ({commentID, text, username, avatar, userID, date, updateFn}) =>
   const { userID: ownID, token } = useContext(AuthContext);
   const ownComment = ownID === userID;
 
-  const removeComment = () => {
-
-    deleteComment(commentID, token)
-      .then(res => {
+  const removeComment = async () => {
+    const res = await deleteComment(commentID, token);
       if(!res.errors) {
-        updateFn()
+        updateFn();
       }
-    });
   }
   const dateOptions = {
     year: 'numeric',

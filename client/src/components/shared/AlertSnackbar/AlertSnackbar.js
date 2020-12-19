@@ -24,7 +24,8 @@ export const AlertSnackbar = ({ msgType, text, status, timeout }) => {
   const errorEmoji = <span className={classes.emoji}> &#128561; </span>
 
   return (
-    <Snackbar open={open}
+    <Snackbar data-testid="snackBar"
+              open={open}
               autoHideDuration={timeout}
               onClose={handleClose}
     >

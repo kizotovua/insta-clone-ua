@@ -2,7 +2,6 @@ import AlertDialog from "./AlertDialog";
 import { render } from '@testing-library/react';
 import { shallow } from "enzyme";
 
-
 describe('AlertDialog', () => {
   const testFunc = jest.fn();
 

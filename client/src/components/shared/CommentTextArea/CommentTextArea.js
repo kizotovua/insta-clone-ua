@@ -13,6 +13,7 @@ const CommentTextArea = ({ changeHandler,disabled,submitFn }) => {
     <div className={classes.root}>
 
       <OutlinedInput
+        data-testid ="input"
         className={classes.textarea}
         fullWidth
         name="comment"
@@ -25,6 +26,7 @@ const CommentTextArea = ({ changeHandler,disabled,submitFn }) => {
         onChange={changeHandler} />
 
       <Button
+        data-testid ="button"
         className={classes.button}
         disableFocusRipple
         disabled={disabled}
