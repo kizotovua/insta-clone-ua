@@ -88,9 +88,9 @@ router.post('/queryByAuthorsID/partial', auth, async (req,res) => {
       const { _id, authorID, imgURL, caption, date, likes } = post;
       return  {_id, authorID, imgURL, caption, date, likes, comments}
 
-    }).reverse();
+    });
 
-    res.json(response)
+    res.json(response.reverse());
 
   } catch (error) {
     res.status(500).json({

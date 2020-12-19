@@ -28,7 +28,6 @@ import {AuthContext} from "../../../../context/AuthContext";
 import Comment from "../../../shared/Comment/Comment";
 import CommentTextArea from "../../../shared/CommentTextArea/CommentTextArea";
 
-
 export const FeedPost = ({postID, currentComments, currentLikes, title, date, author,authorID, avatar, image}) => {
 
   const { profile: {avatar: userAvatar, username} } = useContext(ProfileContext),

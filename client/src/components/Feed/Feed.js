@@ -58,9 +58,7 @@ export const Feed = ({ subscriptions:{ recommendations, following }}) => {
 
          return completeData
        });
-
-       const postsUpdates = data.reverse()
-       setFeed([...feed,...postsUpdates]);
+       setFeed([...feed,...data]);
      }
    } catch (err) {
      setError('Feed loading failed...');
