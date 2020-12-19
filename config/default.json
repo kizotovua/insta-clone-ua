@@ -1,6 +1,4 @@
 {
-  "MONGODB_URI": "mongodb+srv://admin:admin123@cluster0.3hhnb.mongodb.net/app?retryWrites=true&w=majority",
-  "baseURL": "http://localhost:7000",
   "secret-key": "instagram",
   "tokenExpirationTime": "24h"
 }
