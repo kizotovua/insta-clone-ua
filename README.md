@@ -1,5 +1,5 @@
 # insta-clone-ua
-####Educational project at DanIT courses
+### Educational project at DanIT courses
 
 This app copies part of main features of real Instagram app in educational purposes.
 By this app you can create profile and upload photos, comment and like posts of other users.
